@@ -52,8 +52,6 @@ public:
 	// set board field
 	void setBoardField(int fieldNumber)
 	{
-		if (fieldNumber < 1 || fieldNumber > 9) {/*do nothing*/ }
-
 		// 1 - 3
 		if ((fieldNumber >= 1 && fieldNumber <= 3))
 		{
@@ -72,7 +70,6 @@ public:
 				this->board[1][fieldNumber - 4] = this->actuallPlayer.returnSign();
 				this->emptyBoardFields--;
 			}
-
 		}
 		// 7 - 9
 		if ((fieldNumber >= 7 && fieldNumber <= 9))
