@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <ctime>
 
-
 using namespace std;
 
 #include "boardFields.hpp"
@@ -45,51 +44,56 @@ int main()
 
 		// choose the field
 		cout << "Actually sign: " << gameController.returnPlayerSign();
+		char sign;
+
 		cout << " Choose the field [0-9]: ";
-		int sign;
 		cin >> sign;
-
-		// set board field
-		gameController.setBoardField(sign);
-
-
-		// if someone win or there is no empty fields
-		if (gameController.checkBoard())
+	
+		// if sign is valid 
+		if (sign >= 49 && sign <= 57)
 		{
-			system("cls");
-			// draw board -- update
-			gameController.drawBoard();
+			// set board field
+			// -48 to receive valid int 
+			gameController.setBoardField((int)sign-48);
 
-			if (gameController.returnGameStatus() == WIN)
-				cout << " === PLAYER " << gameController.returnPlayerSign() << " won the game! === " << endl;
-			if (gameController.returnGameStatus() == DRAW)
-				cout << " === NO ONE WIN ===" << endl;
-
-			// choice
-			cout << endl << "== What you want to do? ==" << endl;
-			cout << "1. Play again." << endl;
-			cout << "2. Exit" << endl;
-			short choice;
-			cin >> choice;
-
-			switch (choice)
+			// if someone win or there is no empty fields
+			if (gameController.checkBoard())
 			{
-			case 1: // start a new game
-				gameController.gameStatus(PLAY);
-				gameController.resetBoard();
-				gameController.randPlayer(&player1, &player2);
-				break;
-			case 2: // exit
-				gameController.gameStatus(END);
-				break;
-			default: // exit
-				gameController.gameStatus(END);
+				system("cls");
+				// draw board -- update
+				gameController.drawBoard();
+
+				if (gameController.returnGameStatus() == WIN)
+					cout << " === PLAYER " << gameController.returnPlayerSign() << " won the game! === " << endl;
+				if (gameController.returnGameStatus() == DRAW)
+					cout << " === NO ONE WIN ===" << endl;
+
+				// choice
+				cout << endl << "== What you want to do? ==" << endl;
+				cout << "1. Play again." << endl;
+				cout << "2. Exit" << endl;
+				short choice;
+				cin >> choice;
+
+				switch (choice)
+				{
+				case 1: // start a new game
+					gameController.gameStatus(PLAY);
+					gameController.resetBoard();
+					gameController.randPlayer(&player1, &player2);
+					break;
+				case 2: // exit
+					gameController.gameStatus(END);
+					break;
+				default: // exit
+					gameController.gameStatus(END);
+				}
 			}
-		}
-		else
-		{
-			// change player
-			gameController.changePlayer(&player1, &player2);
+			else
+			{
+				// change player
+				gameController.changePlayer(&player1, &player2);
+			}
 		}
 
 		// while game status != end
